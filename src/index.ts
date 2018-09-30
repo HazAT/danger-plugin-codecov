@@ -15,7 +15,6 @@ export interface Options {
 }
 
 export default async function codecov(options: Options = {}) {
-  const baseSha = danger.github.pr.base.sha;
   const lastCommit = danger.git.commits.pop() || false;
   if (lastCommit === false) {
     // We do not have a commit in this pr
@@ -24,8 +23,8 @@ export default async function codecov(options: Options = {}) {
   const lastCommitSha = lastCommit.sha;
   const repoName = danger.github.pr.base.repo.full_name;
 
-  const baseResult = await fetchFromCodeCov(repoName, baseSha);
-  const lastCommitInPr = await fetchFromCodeCov(repoName, lastCommitSha);
+  const baseResult = await codecovBranch(repoName);
+  const lastCommitInPr = await codecovCommit(repoName, lastCommitSha);
 
   if (options.callback) {
     // If callback is set we return the result and do nothing
@@ -43,7 +42,7 @@ export default async function codecov(options: Options = {}) {
 
   const diff =
     parseFloat(lastCommitInPr.commit.totals.c) -
-    parseFloat(baseResult.commit.totals.c);
+    parseFloat(baseResult.commits.pop().totals.c);
 
   const change = diff >= 0 ? Change.increase : Change.decrease;
   const absDiffFixed = Math.abs(diff).toFixed(1);
@@ -56,9 +55,15 @@ export default async function codecov(options: Options = {}) {
   message(imageTemplate(shieldUrlDiff) + imageTemplate(shieldUrlResult));
 }
 
-async function fetchFromCodeCov(repoName: string, sha: string) {
-  const codecovApiBaseUrl = "https://codecov.io/api/gh";
+const codecovApiBaseUrl = "https://codecov.io/api/gh";
+async function codecovCommit(repoName: string, sha: string) {
   return fetch(`${codecovApiBaseUrl}/${repoName}/commit/${sha}`).then((res) =>
+    res.json(),
+  );
+}
+
+async function codecovBranch(repoName: string, branch: string = "master") {
+  return fetch(`${codecovApiBaseUrl}/${repoName}/branch/${branch}`).then((res) =>
     res.json(),
   );
 }
