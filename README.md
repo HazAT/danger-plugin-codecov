@@ -4,6 +4,8 @@
 
 > Print coverage report from codecov.io
 
+![assets/result.png](assets/result.png?raw=1)
+
 ## Usage
 
 Install:
