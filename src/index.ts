@@ -1,4 +1,6 @@
-import { fetchFromCodeCov, imageTemplate } from "./helper";
+declare var require: (string) => any;
+// tslint:disable-next-line
+const fetch = require("node-fetch");
 
 import { DangerDSLType } from "../node_modules/danger/distribution/dsl/DangerDSL";
 declare var danger: DangerDSLType;
@@ -52,4 +54,15 @@ export default async function codecov(options: Options = {}) {
   const shieldUrlResult = `${baseShieldUrl}/%3D-${percentage}%25-blue.svg${shieldQueryParams}`;
 
   message(imageTemplate(shieldUrlDiff) + imageTemplate(shieldUrlResult));
+}
+
+async function fetchFromCodeCov(repoName: string, sha: string) {
+  const codecovApiBaseUrl = "https://codecov.io/api/gh";
+  return fetch(`${codecovApiBaseUrl}/${repoName}/commit/${sha}`).then((res) =>
+    res.json(),
+  );
+}
+
+function imageTemplate(url: string): string {
+  return `<img src="${url}" />`;
 }

@@ -1,6 +1,9 @@
 import codecov from "./index";
 
-jest.mock("./helper", () => ({
+// TODO: fix tests
+
+jest.mock("./index", () => ({
+  default: codecov,
   fetchFromCodeCov: jest
     .fn()
     .mockImplementation((repoName: string, sha: string) => {
