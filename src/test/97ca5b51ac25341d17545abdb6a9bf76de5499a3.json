@@ -1,0 +1,75 @@
+{
+  "owner": {
+    "username": "getsentry",
+    "name": "Sentry",
+    "service": "github",
+    "updatestamp": "2018-09-27T19:10:58.421025",
+    "service_id": "1396951"
+  },
+  "repo": {
+    "using_integration": null,
+    "name": "sentry-javascript",
+    "language": "javascript",
+    "deleted": false,
+    "activated": false,
+    "private": false,
+    "updatestamp": "2018-09-27T16:31:51.181294+00:00",
+    "branch": "master",
+    "active": true,
+    "service_id": "3328572",
+    "image_token": "UWeEisBZLe"
+  },
+  "meta": { "status": 200 },
+  "commit": {
+    "commitid": "97ca5b51ac25341d17545abdb6a9bf76de5499a3",
+    "parent": "1ef73fb70d2aa9627cb1c9c7bf41789bc1e739bb",
+    "author": {
+      "username": "kamilogorek",
+      "service_id": "1523305",
+      "name": null,
+      "service": "github",
+      "email": null
+    },
+    "deleted": null,
+    "timestamp": "2018-09-27T16:26:56",
+    "parent_totals": {
+      "C": 0,
+      "b": 311,
+      "d": 9,
+      "f": 46,
+      "h": 1216,
+      "M": 0,
+      "c": "75.66895",
+      "N": 0,
+      "p": 8,
+      "m": 383,
+      "diff": [1, 2, 2, 0, 0, "100", 1, 0, 0, 0, 0, 0, 0],
+      "s": 3,
+      "n": 1607
+    },
+    "ci_passed": false,
+    "totals": {
+      "C": 0,
+      "b": 311,
+      "d": 9,
+      "f": 46,
+      "h": 1216,
+      "M": 0,
+      "c": "75.66895",
+      "N": 0,
+      "p": 8,
+      "m": 383,
+      "diff": null,
+      "s": 3,
+      "n": 1607
+    },
+    "pullid": null,
+    "notified": null,
+    "state": "complete",
+    "updatestamp": "2018-09-27T16:32:57.126529",
+    "branch": "master",
+    "report": "<Report files=46>",
+    "message": "fix: Use correct type for event's repos attribute (#1595)",
+    "merged": false
+  }
+}

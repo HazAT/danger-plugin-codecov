@@ -1,0 +1,75 @@
+{
+  "owner": {
+    "username": "getsentry",
+    "name": "Sentry",
+    "service": "github",
+    "updatestamp": "2018-09-27T19:10:58.421025",
+    "service_id": "1396951"
+  },
+  "repo": {
+    "using_integration": null,
+    "name": "sentry-javascript",
+    "language": "javascript",
+    "deleted": false,
+    "activated": false,
+    "private": false,
+    "updatestamp": "2018-09-27T16:31:51.181294+00:00",
+    "branch": "master",
+    "active": true,
+    "service_id": "3328572",
+    "image_token": "UWeEisBZLe"
+  },
+  "meta": { "status": 200 },
+  "commit": {
+    "commitid": "eb4f9a4b8de302e124ee9ccb0f64b318266cb4ad",
+    "parent": "e087b0bba6242667546e0c6fb6b15348e143fdb2",
+    "author": {
+      "username": "HazAT",
+      "service_id": "363802",
+      "name": null,
+      "service": "github",
+      "email": null
+    },
+    "deleted": null,
+    "timestamp": "2018-09-27T15:27:35",
+    "parent_totals": {
+      "C": 0,
+      "b": 310,
+      "d": 9,
+      "f": 45,
+      "h": 1210,
+      "M": 0,
+      "c": "75.57776",
+      "N": 0,
+      "p": 8,
+      "m": 383,
+      "diff": null,
+      "s": 3,
+      "n": 1601
+    },
+    "ci_passed": false,
+    "totals": {
+      "C": 0,
+      "b": 311,
+      "d": 9,
+      "f": 45,
+      "h": 1211,
+      "M": 0,
+      "c": "75.54585",
+      "N": 0,
+      "p": 8,
+      "m": 384,
+      "diff": null,
+      "s": 1,
+      "n": 1603
+    },
+    "pullid": "1589",
+    "notified": null,
+    "state": "complete",
+    "updatestamp": "2018-09-27T15:34:20.689083",
+    "branch": "feature/craft",
+    "report": "<Report files=45>",
+    "message": "Merge branch 'feature/craft' of github.com:getsentry/sentry-javascript into feature/craft",
+    "merged": false
+  }
+}

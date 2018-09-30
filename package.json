@@ -1,0 +1,60 @@
+{
+  "name": "danger-plugin-codecov",
+  "description": "Print coverage report from codecov.io",
+  "author": {
+    "name": "Daniel Griesser",
+    "email": "daniel.griesser.86@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hazat/danger-plugin-codecov.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hazat/danger-plugin-codecov/issues"
+  },
+  "homepage": "https://github.com/hazat/danger-plugin-codecov#readme",
+  "keywords": [
+    "danger",
+    "danger-plugin"
+  ],
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "tslint \"src/**/*.ts\""
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^19.2.4",
+    "@types/node": "^10.11.3",
+    "danger": "*",
+    "jest": "^20.0.1",
+    "prettier": "^1.14.3",
+    "ts-jest": "^20.0.0",
+    "tslint": "^5.4.3",
+    "typescript": "^2.3.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(.test)\\.(ts|tsx)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "<rootDir>/node_modules/"
+    ]
+  }
+}
