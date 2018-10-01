@@ -23,12 +23,14 @@ export default async function codecov(options: Options = {}) {
   const lastCommitSha = lastCommit.sha;
   const repoName = danger.github.pr.base.repo.full_name;
 
-  const baseResult = await codecovBranch(repoName);
-  const lastCommitInPr = await codecovCommit(repoName, lastCommitSha);
+  const baseCoverage = await retry(codecovBranch(repoName));
+  const lastCommitCoverage = await retry(
+    codecovCommit(repoName, lastCommitSha),
+  );
 
   if (options.callback) {
     // If callback is set we return the result and do nothing
-    options.callback(baseResult, lastCommitInPr);
+    options.callback(baseCoverage, lastCommitCoverage);
     return;
   }
 
@@ -40,19 +42,53 @@ export default async function codecov(options: Options = {}) {
   const baseShieldUrl = "https://img.shields.io/badge";
   const shieldQueryParams = "?longCache=true&style=flat-square";
 
-  const diff =
-    parseFloat(lastCommitInPr.commit.totals.c) -
-    parseFloat(baseResult.commits.pop().totals.c);
+  const diff = parseFloat(lastCommitCoverage) - parseFloat(baseCoverage);
 
   const change = diff >= 0 ? Change.increase : Change.decrease;
   const absDiffFixed = Math.abs(diff).toFixed(1);
   const sign = change === Change.increase ? "+" : "%E2%80%93";
   const color = change === Change.increase ? "green" : "red";
-  const percentage = parseFloat(lastCommitInPr.commit.totals.c).toFixed(1);
+  const percentage = parseFloat(lastCommitCoverage).toFixed(1);
   const shieldUrlDiff = `${baseShieldUrl}/coverage-${sign}${absDiffFixed}%25-${color}.svg${shieldQueryParams}`;
   const shieldUrlResult = `${baseShieldUrl}/%3D-${percentage}%25-blue.svg${shieldQueryParams}`;
 
   message(imageTemplate(shieldUrlDiff) + imageTemplate(shieldUrlResult));
+}
+
+async function timeout(delay: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, delay);
+  });
+}
+
+async function retry<T>(call: Promise<T>, times: number = 5) {
+  let result: T | undefined;
+  for (let i = 0; i < times; i++) {
+    try {
+      result = retrieveCoverage(await call);
+      if (result) {
+        break;
+      }
+      await timeout(5000);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  return result;
+}
+
+function retrieveCoverage(report: any) {
+  try {
+    return report.commit.totals.c;
+  } catch {
+    // nothing here
+  }
+  try {
+    return report.commits.pop().totals.c;
+  } catch {
+    // nothing here
+  }
+  return;
 }
 
 const codecovApiBaseUrl = "https://codecov.io/api/gh";
